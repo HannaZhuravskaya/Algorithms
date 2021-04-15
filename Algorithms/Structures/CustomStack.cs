@@ -1,44 +1,46 @@
 using System;
-using System.Collections.Generic;
 
-/*
-         	 Time Complexity	                                                       Space Complexity
-                 Average	                            Worst	                            Worst
-       Access	Search	Insertion	Deletion	Access	Search	Insertion	Deletion
-Stack	Θ(n)	Θ(n)	  Θ(1)	      Θ(1)	     O(n)	  O(n)	  O(1)	      O(1)	         O(n)
-*/
-
-public class CustomStack<T> where T: struct
+namespace Algorithms.Structures
 {
-    private Node? _last = null;
+    /*
+                 Time Complexity	                                                       Space Complexity
+                     Average	                            Worst	                            Worst
+           Access	Search	Insertion	Deletion	Access	Search	Insertion	Deletion
+    Stack	Θ(n)	Θ(n)	  Θ(1)	      Θ(1)	     O(n)	  O(n)	  O(1)	      O(1)	         O(n)
+    */
 
-    public void Push(T value)
+    public class CustomStack<T> where T : struct
     {
-        var node = new Node(value);
+        private Node? _last = null;
 
-        if(_last is not null)
-            node.Prev = _last;
+        public void Push(T value)
+        {
+            var node = new Node(value);
 
-        _last =  node;
-    }
+            if (_last is not null)
+                node.Prev = _last;
 
-    public T Pop()
-    {
-        if(_last is null)
-            throw new ArgumentOutOfRangeException();
-        
-        var value = _last.Value;
+            _last = node;
+        }
 
-        _last = _last.Prev;
+        public T Pop()
+        {
+            if (_last is null)
+                throw new ArgumentOutOfRangeException();
 
-        return value;
-    }
+            var value = _last.Value;
 
-    private class Node
-    {
-        public Node(T value) => Value = value;
+            _last = _last.Prev;
 
-        public T Value { get; }
-        public Node? Prev { get; set; }
+            return value;
+        }
+
+        private class Node
+        {
+            public Node(T value) => Value = value;
+
+            public T Value { get; }
+            public Node? Prev { get; set; }
+        }
     }
 }

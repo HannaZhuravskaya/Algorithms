@@ -1,48 +1,50 @@
 using System;
-using System.Collections.Generic;
 
-/*
-         	 Time Complexity	                                                       Space Complexity
-                 Average	                            Worst	                            Worst
-       Access	Search	Insertion	Deletion	Access	Search	Insertion	Deletion
-Queue	Θ(n)	Θ(n)	  Θ(1)	      Θ(1)	     O(n)	  O(n)	  O(1)     	  O(1)	         O(n)
-*/
-
-public class CustomQueue<T> where T: struct
+namespace Algorithms.Structures
 {
-    private Node? _first;
-    private Node? _last;
-   
-    public void Enqueue(T value)
+    /*
+                 Time Complexity	                                                       Space Complexity
+                     Average	                            Worst	                            Worst
+           Access	Search	Insertion	Deletion	Access	Search	Insertion	Deletion
+    Queue	Θ(n)	Θ(n)	  Θ(1)	      Θ(1)	     O(n)	  O(n)	  O(1)     	  O(1)	         O(n)
+    */
+
+    public class CustomQueue<T> where T : struct
     {
-        var node = new Node(value);
+        private Node? _first;
+        private Node? _last;
 
-        if(_last is not null)
-            _last.Next = node;
+        public void Enqueue(T value)
+        {
+            var node = new Node(value);
 
-        _last = node;
+            if (_last is not null)
+                _last.Next = node;
 
-        if(_first is null)
-            _first = node;
-    }
+            _last = node;
 
-    public T Dequeue()
-    {
-        if(_first is null)
-            throw new ArgumentOutOfRangeException();
+            if (_first is null)
+                _first = node;
+        }
 
-        var value = _first.Value;
+        public T Dequeue()
+        {
+            if (_first is null)
+                throw new ArgumentOutOfRangeException();
 
-        _first = _first.Next;
+            var value = _first.Value;
 
-        return value;
-    }
+            _first = _first.Next;
 
-    private class Node
-    {
-        public Node(T value) => Value = value;
+            return value;
+        }
 
-        public T Value { get; }
-        public Node? Next { get; set; }
+        private class Node
+        {
+            public Node(T value) => Value = value;
+
+            public T Value { get; }
+            public Node? Next { get; set; }
+        }
     }
 }
