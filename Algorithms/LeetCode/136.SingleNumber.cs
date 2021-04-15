@@ -1,22 +1,25 @@
 using System.Collections.Generic;
 
-public class SingleNumberTask
+namespace Algorithms.LeetCode
 {
-    public int SingleNumber(int[] nums)
+    public class SingleNumberTask
     {
-        var set = new HashSet<int>();
-
-        foreach (var num in nums)
+        public int SingleNumber(int[] nums)
         {
-            if (set.Contains(num))
-                set.Remove(num);
-            else
-                set.Add(num);
+            var set = new HashSet<int>();
+
+            foreach (var num in nums)
+            {
+                if (set.Contains(num))
+                    set.Remove(num);
+                else
+                    set.Add(num);
+            }
+
+            var result = new int[1];
+            set.CopyTo(result);
+
+            return result[0];
         }
-
-        var result = new int[1];
-        set.CopyTo(result);
-
-        return result[0];
     }
 }

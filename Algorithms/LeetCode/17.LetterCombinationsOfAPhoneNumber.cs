@@ -1,71 +1,76 @@
 using System.Collections.Generic;
 using System.Text;
 
-public class LetterCombinationsTask {
-    private string?[] _chars = new string?[10]{null, null, "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
-
-    public IList<string> LetterCombinations(string digits) {
-        if(string.IsNullOrWhiteSpace(digits))
-           return new List<string>();
-
-        var root = CreateTree(digits);
-
-        var queue = new Queue<(TreeNode, StringBuilder)>();
-        queue.Enqueue((root, new StringBuilder()));
-        IList<string> results = new List<string>();
-
-        while(queue.Count > 0)
-        {
-            var (cur, sb) = queue.Dequeue();
-            if(cur.Children.Count > 0)
-            {
-                foreach(var child in cur.Children)
-                    queue.Enqueue((child, new StringBuilder().Append(sb).Append(child.Value)));
-            }
-            else
-            {
-                results.Add(sb.ToString());
-            }
-        }
-
-        return results;
-    }
-
-    private TreeNode CreateTree(string digits)
+namespace Algorithms.LeetCode
+{
+    public class LetterCombinationsTask
     {
-        var digit = digits[0] - '0';
-        var root = new TreeNode();
-        var queue = new Queue<(TreeNode, int)>();
-        queue.Enqueue((root, 0));
+        private string?[] _chars = new string?[10] { null, null, "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
 
-        while(queue.Count > 0)
+        public IList<string> LetterCombinations(string digits)
         {
-            var (cur, index) = queue.Dequeue();
-            if(index < digits.Length)
-            {
-                digit = digits[index] - '0';
+            if (string.IsNullOrWhiteSpace(digits))
+                return new List<string>();
 
-                foreach(var character in _chars[digit]!)
+            var root = CreateTree(digits);
+
+            var queue = new Queue<(TreeNode, StringBuilder)>();
+            queue.Enqueue((root, new StringBuilder()));
+            IList<string> results = new List<string>();
+
+            while (queue.Count > 0)
+            {
+                var (cur, sb) = queue.Dequeue();
+                if (cur.Children.Count > 0)
                 {
-                    var node = new TreeNode(character);
-                    cur.Children.AddLast(node);
-                    queue.Enqueue((node, index + 1));
+                    foreach (var child in cur.Children)
+                        queue.Enqueue((child, new StringBuilder().Append(sb).Append(child.Value)));
+                }
+                else
+                {
+                    results.Add(sb.ToString());
                 }
             }
+
+            return results;
         }
 
-        return root;
-    }
-
-    private class TreeNode
-    {
-        public TreeNode(char? value = null)
+        private TreeNode CreateTree(string digits)
         {
-           Value = value;
-           Children = new LinkedList<TreeNode>();
+            var digit = digits[0] - '0';
+            var root = new TreeNode();
+            var queue = new Queue<(TreeNode, int)>();
+            queue.Enqueue((root, 0));
+
+            while (queue.Count > 0)
+            {
+                var (cur, index) = queue.Dequeue();
+                if (index < digits.Length)
+                {
+                    digit = digits[index] - '0';
+
+                    foreach (var character in _chars[digit]!)
+                    {
+                        var node = new TreeNode(character);
+                        cur.Children.AddLast(node);
+                        queue.Enqueue((node, index + 1));
+                    }
+                }
+            }
+
+            return root;
         }
 
-        public char? Value;
-        public LinkedList<TreeNode> Children {get;set;}
+        private class TreeNode
+        {
+            public TreeNode(char? value = null)
+            {
+                Value = value;
+                Children = new LinkedList<TreeNode>();
+            }
+
+            public char? Value;
+            public LinkedList<TreeNode> Children { get; set; }
+        }
     }
 }
