@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 
-namespace Algorithms.Algorithms
+namespace Algorithms.Basic
 {
+
     /*
                     Algorithm	Time Complexity	     Space Complexity
                    Best	       Average	   Worst	    Worst
