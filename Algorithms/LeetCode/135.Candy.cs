@@ -19,7 +19,7 @@ namespace Algorithms.LeetCode
             for (int i = ratings.Length - 2; i >= 0; --i)
             {
                 if (ratings[i] > ratings[i + 1])
-                    l[i] = l[i + 1] + 1;
+                    r[i] = r[i + 1] + 1;
             }
 
             var sum = 0;
