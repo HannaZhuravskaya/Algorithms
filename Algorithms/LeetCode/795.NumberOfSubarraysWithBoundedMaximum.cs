@@ -1,3 +1,5 @@
+#nullable disable
+
 namespace Algorithms.LeetCode
 {
     public class NumberOfSubarraysWithBoundedMaximum
